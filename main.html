@@ -1,2 +1,9 @@
 <h1>Here is the weather for the day</h1>
 <h3>{{greeting}}</h3>
+
+<form ng-submit="getweather()">
+<input ng-model="zip" type="text" placeholder="zipcode">
+<input type="submit" value="Get Weather">
+</form>
+<!-- <a href="/#!/weather/{{zip}}">Get weather</a> -->
+<!-- one way to do it -->
