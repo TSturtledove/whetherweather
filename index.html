@@ -7,9 +7,10 @@
   <title>Weather stuff</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body ng-app="overweather">
   <div class="rain">
     <h1>Welcome to the storm</h1>
+    <div ng-view></div>
   </div>
 
 
@@ -17,8 +18,9 @@
   <script type="text/javascript" src="bower_components\angular\angular.js"></script>
   <script type="text/javascript" src="bower_components\angular-route\angular-route.js"></script>
   <script type="text/javascript" src="app/app.js"></script>
-  <!-- <script type="text/javascript" src="app/controllers"></script> -->
-  <!-- <script type="text/javascript" src="app/factory"></script> -->
+  <script type="text/javascript" src="app/controllers/main.js"></script>
+  <script type="text/javascript" src="app/controllers/weather.js"></script>
+  <script type="text/javascript" src="app/factory"></script>
 
 </body>
 </html>
