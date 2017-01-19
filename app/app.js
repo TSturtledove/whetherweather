@@ -41,18 +41,19 @@ angular
       $location.url(`/weather/${$scope.zip}`)
     }
   })
-.controller("weatherzip", function($scope, $http, $routeParams) {
 
+
+// .controller("weatherzip", function($scope, $http, $routeParams) {
+.controller("weatherzip", function($scope, $routeParams, weatherFactory) {
 
   // if using $http instead of a factory
 
-
-  $http.get(`http://api.wunderground.com/api/b0b52efaf85246e2/conditions/q/${$routeParams.zipcode}.json`)
-  .then(function(respose) {
-    return respose.data.current_observation.temperature_string
-  }).then(function(temp) {
-    $scope.temp =temp
-  })
+  // $http.get(`http://api.wunderground.com/api/b0b52efaf85246e2/conditions/q/${$routeParams.zipcode}.json`)
+  // .then(function(respose) {
+  //   return respose.data.current_observation.temperature_string
+  // }).then(function(temp) {
+  //   $scope.temp =temp
+  // })
 
 
 // could also do it this way
@@ -68,12 +69,24 @@ angular
 
 
 //if using a factory write
-    // weatherFactory
-    // .getweather($routeParams.zipcode)
-
-
+    weatherFactory
+    .getweather($routeParams.zipcode)
+    .then(function(weather) {
+      $scope.temp = weather
+    })
 })
 
+.factory("weatherFactory", function($http) {
+  return {
+    getweather (zipcode) {
+      return $http
+      .get(`http://api.wunderground.com/api/b0b52efaf85246e2/conditions/q/${zipcode}.json`)
+        .then(function(respose) {
+          return respose.data.current_observation.temperature_string
+        })
+    }
+  }
+})
 //
 // .factory("weatherFactory", function($http) {
 //   return {
@@ -82,3 +95,29 @@ angular
 //     }
 //   }
 // }
+
+
+
+
+
+//Pulled as reference******************************
+// weatherFactory
+//    .getWeather($routeParams.zipcode)
+//    .then((weather) => {
+//      $scope.temperature = weather.temp
+//      $scope.city = weather.city
+//    })
+// })
+// .factory('weatherFactory', ($http) => {
+//  return {
+//    getWeather (zipcode) {
+//      return $http
+//        .get(`http://api.wunderground.com/api/69e0974e13868fe4/conditions/q/${zipcode}.json`)
+//        .then((response) => ({ // same as `=> return {`
+//            temp: response.data.current_observation.temp_f,
+//            city: response.data.current_observation.display_location.full,
+//          })
+//        )
+//    },
+//  }
+// })
